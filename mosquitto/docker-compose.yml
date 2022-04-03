@@ -1,0 +1,24 @@
+configs:
+  mosquitto.conf:
+    file: ./mosquitto.conf
+
+volumes:
+  data:
+
+networks:
+  default:
+
+services:
+ mqtt:
+   image: eclipse-mosquitto:latest
+   ports:
+    - 1883:1883
+    - 9001:9001
+   configs:
+    - source: mosquitto.conf
+      target: /mosquitto/config/mosquitto.conf
+      uid: "1883"
+      gid: "1883"
+      mode: 0440
+   volumes:
+    - data:/mosquitto/data/
